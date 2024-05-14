@@ -10,4 +10,6 @@ class AlbumTema extends Model
     use HasFactory;
 
     protected $table = 'albumes_temas';
+    protected $fillable = ['album_id', 'tema_id'];
+    
 }

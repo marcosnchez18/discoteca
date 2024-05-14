@@ -1,7 +1,13 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\AlbumTemaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TemaController;
 use Illuminate\Support\Facades\Route;
+
+use App\Models\Album;
+use App\Models\Tema;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +29,27 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+
+    Route::post('albumes/inserta', [AlbumTemaController::class, 'insertar'])->name('albumes.inserta');
+
+
+
+    Route::get('albumes/inserta', function () {
+        $albumes = Album::all();
+        $temas = Tema::all();
+
+        return view('albumes.inserta', compact('albumes', 'temas'));
+    });
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+    Route::resource('albumes', AlbumController::class)->parameters(['albumes' => 'album']);
+    Route::resource('temas', TemaController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
