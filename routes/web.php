@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\AlbumTemaController;
+use App\Http\Controllers\ArtistaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TemaController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('albumes', AlbumController::class)->parameters(['albumes' => 'album']);
     Route::resource('temas', TemaController::class);
+    Route::resource('artistas', ArtistaController::class);
 });
 
 require __DIR__ . '/auth.php';

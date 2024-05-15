@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artista;
+use App\Models\ArtistaTema;
 use Illuminate\Http\Request;
 
 class ArtistaController extends Controller
@@ -12,7 +13,9 @@ class ArtistaController extends Controller
      */
     public function index()
     {
-        //
+        return view('artistas.index', [
+            'artistas' => Artista::all(),
+        ]);
     }
 
     /**
@@ -20,7 +23,7 @@ class ArtistaController extends Controller
      */
     public function create()
     {
-        //
+        return view('artistas.create');
     }
 
     /**
@@ -28,7 +31,15 @@ class ArtistaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => 'required|max:255',
+        ]);
+
+        $Artista = new Artista();
+        $Artista->nombre = $validated['nombre'];
+        $Artista->save();
+        session()->flash('success', 'El artista se ha creado correctamente.');
+        return redirect()->route('artistas.index');
     }
 
     /**
@@ -36,7 +47,9 @@ class ArtistaController extends Controller
      */
     public function show(Artista $artista)
     {
-        //
+        return view('artistas.show', [
+            'artista' => $artista,
+        ]);
     }
 
     /**
@@ -44,7 +57,9 @@ class ArtistaController extends Controller
      */
     public function edit(Artista $artista)
     {
-        //
+        return view('artistas.edit', [
+            'artista' => $artista,
+        ]);
     }
 
     /**
@@ -52,7 +67,14 @@ class ArtistaController extends Controller
      */
     public function update(Request $request, Artista $artista)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => 'required|max:255',
+        ]);
+
+        $artista->nombre = $validated['nombre'];
+        $artista->save();
+        session()->flash('success', 'Artista cambiado correctamente');
+        return redirect()->route('artistas.index');
     }
 
     /**
@@ -60,6 +82,18 @@ class ArtistaController extends Controller
      */
     public function destroy(Artista $artista)
     {
-        //
+        //ArtistaCancion::where('artista_id', $artista->id)->delete();
+        //AlbumArtista::where('artista_id', $artista->id)->delete();   //esto es si queremos que se borre y listo, pero el ejercicio nos dice que se impida borrar
+        $r1 = ArtistaTema::where('artista_id', $artista->id)->count();
+
+
+        if ($r1 > 0) {
+            session()->flash('error', 'No se puede borrar una artista contenido en un álbum o en una canción');
+            return redirect()->route('canciones.index');   //sin esto no funcionaría
+        }
+
+        $artista->delete();
+        session()->flash('success', 'Artista eliminado correctamente.');
+        return redirect()->route('artistas.index');
     }
 }

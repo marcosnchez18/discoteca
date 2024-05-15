@@ -24,6 +24,12 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('artistas.index')" :active="request()->routeIs('categorias.index')">
+                        Artistas
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('albumes.inserta')" :active="request()->routeIs('categorias.index')">
                         Inserta
                     </x-nav-link>
