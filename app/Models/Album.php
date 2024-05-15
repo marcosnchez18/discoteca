@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -38,9 +39,8 @@ class Album extends Model
             $cancion = Tema::find($registro->tema_id);
             $tiempo = $cancion->duracion;
 
-            // Convertir la duración a minutos y segundos
-            list($horas, $minutos, $segundos) = explode(':', $tiempo);
-            $duracion += $minutos * 60 + $segundos;
+            $total_cancion = Carbon::createFromFormat('H:i:s', $tiempo);
+            $duracion += $total_cancion->hour * 3600 + $total_cancion->minute * 60 + $total_cancion->second;
         }
 
         // Convertir la duración total de segundos a formato minutos:segundos

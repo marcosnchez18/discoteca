@@ -15,6 +15,15 @@
             </div>
 
             <div>
+                <x-input-label for="anyo" :value="'anyo del tema'" />
+                <x-text-input id="anyo" class="block mt-1 w-full"
+                    type="text" name="anyo" :value="old('anyo', $tema->anyo)" required
+                    autofocus autocomplete="anyo" />
+                <x-input-error :messages="$errors->get('anyo')" class="mt-2" />
+            </div>
+
+
+            <div>
                 <x-input-label for="duracion" :value="'duracion del tema'" />
                 <x-text-input id="duracion" class="block mt-1 w-full"
                     type="text" name="duracion" :value="old('duracion', $tema->duracion)" required
@@ -22,13 +31,6 @@
                 <x-input-error :messages="$errors->get('duracion')" class="mt-2" />
             </div>
 
-            <div>
-                <x-input-label for="duracion" :value="'duracion del tema'" />
-                <x-text-input id="duracion" class="block mt-1 w-full"
-                    type="text" name="duracion" :value="old('duracion', $tema->duracion)" required
-                    autofocus autocomplete="duracion" />                                                       <!-- Ojo con esas cosas , que es para que se guarde la antigua -->
-                <x-input-error :messages="$errors->get('duracion')" class="mt-2" />
-            </div>
 
 
 

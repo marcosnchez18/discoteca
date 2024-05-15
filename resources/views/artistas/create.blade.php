@@ -7,7 +7,7 @@
 
             <!-- nombre -->
             <div>
-                <x-input-label for="nombre" :value="'nombre del album'" />
+                <x-input-label for="nombre" :value="'nombre del artista'" />
                 <x-text-input id="nombre" class="block mt-1 w-full"
                     type="text" name="nombre" :value="old('nombre')" required
                     autofocus autocomplete="nombre" />

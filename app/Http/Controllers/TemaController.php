@@ -80,8 +80,8 @@ class TemaController extends Controller
         ]);
 
         $tema->titulo = $validated['titulo'];
-        $tema->titulo = $validated['anyo'];
-        $tema->titulo = $validated['duracion'];
+        $tema->anyo = $validated['anyo'];
+        $tema->duracion = $validated['duracion'];
         $tema->save();
         session()->flash('success', 'tema cambiado correctamente');
         return redirect()->route('temas.index');

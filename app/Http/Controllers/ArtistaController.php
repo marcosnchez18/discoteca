@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlbumTema;
 use App\Models\Artista;
 use App\Models\ArtistaTema;
 use Illuminate\Http\Request;
@@ -83,13 +84,20 @@ class ArtistaController extends Controller
     public function destroy(Artista $artista)
     {
         //ArtistaCancion::where('artista_id', $artista->id)->delete();
-        //AlbumArtista::where('artista_id', $artista->id)->delete();   //esto es si queremos que se borre y listo, pero el ejercicio nos dice que se impida borrar
-        $r1 = ArtistaTema::where('artista_id', $artista->id)->count();
-
-
-        if ($r1 > 0) {
-            session()->flash('error', 'No se puede borrar una artista contenido en un álbum o en una canción');
-            return redirect()->route('canciones.index');   //sin esto no funcionaría
+        $r1 = ArtistaTema::where('artista_id', $artista->id)->get();
+        $z1 = ArtistaTema::where('artista_id', $artista->id)->count();
+        foreach ($r1 as $r) {
+            $cod = $r->tema_id;
+            $r2 = AlbumTema::where('tema_id', $cod)->count();
+            if ($r2 > 0) {
+                session()->flash('error', 'No se puede borrar una artista cuyo tema esta en un álbum');
+                return redirect()->route('artistas.index');   //sin esto no funcionaría
+            } else {
+                if ($z1 > 0) {
+                    session()->flash('error', 'No se puede borrar una artista que ya tiene una cancion');
+                    return redirect()->route('artistas.index');
+                }
+            }
         }
 
         $artista->delete();

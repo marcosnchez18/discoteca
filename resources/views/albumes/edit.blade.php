@@ -18,7 +18,7 @@
             <div>
                 <x-input-label for="anyo" :value="'año del album'" />
                 <x-text-input id="anyo" class="block mt-1 w-full"
-                    type="text" name="anyo" :value="old('anyo')" required
+                    type="text" name="anyo" :value="old('anyo', $album->anyo)" required
                     autofocus autocomplete="anyo" />
                 <x-input-error :messages="$errors->get('anyo')" class="mt-2" />
             </div>

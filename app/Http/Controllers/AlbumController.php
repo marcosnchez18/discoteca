@@ -78,7 +78,7 @@ class AlbumController extends Controller
         ]);
 
         $album->titulo = $validated['titulo'];
-        $album->titulo = $validated['anyo'];
+        $album->anyo = $validated['anyo'];
         $album->save();
         session()->flash('success', 'Álbum cambiado correctamente');
         return redirect()->route('albumes.index');

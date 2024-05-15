@@ -8,17 +8,17 @@
 
             <!-- nombre -->
             <div>
-                <x-input-label for="nombre" :value="'nombre del album'" />
+                <x-input-label for="nombre" :value="'nombre del artista'" />
                 <x-text-input id="nombre" class="block mt-1 w-full"
-                    type="text" name="nombre" :value="old('nombre', $album->nombre)" required
+                    type="text" name="nombre" :value="old('nombre', $artista->nombre)" required
                     autofocus autocomplete="nombre" />
                 <x-input-error :messages="$errors->get('nombre')" class="mt-2" />
             </div>
 
-         
+
 
             <div class="flex items-center justify-end mt-4">
-                <a href="{{ route('albumes.index') }}">
+                <a href="{{ route('artistas.index') }}">
                     <x-secondary-button class="ms-4">
                         Volver
                         </x-primary-button>
