@@ -8,6 +8,7 @@ use App\Http\Controllers\TemaController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Album;
+use App\Models\Artista;
 use App\Models\Tema;
 
 /*
@@ -52,6 +53,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('albumes', AlbumController::class)->parameters(['albumes' => 'album']);
     Route::resource('temas', TemaController::class);
     Route::resource('artistas', ArtistaController::class);
+
+    Route::get('/artistas/albumes/{artista}', function (Artista $artista) {
+        return view('artistas.albumes', [
+            'artista' => $artista,
+        ]);
+    })->name('artistas.albumes');
 });
 
 require __DIR__ . '/auth.php';
