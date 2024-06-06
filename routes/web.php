@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('artistas', ArtistaController::class);
 
     Route::get('/artistas/albumes/{artista}', function (Artista $artista) {
-        return view('artistas.albumes', [
+        return view('artistas.albumes', [       //ruta de jose raposo
             'artista' => $artista,
         ]);
     })->name('artistas.albumes');
